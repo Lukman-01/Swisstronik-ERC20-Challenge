@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.19;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -13,7 +13,8 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 contract IbukunToken is ERC20, Ownable, Pausable {
     using SafeMath for uint256;
 
-    uint256 public constant maxSupply = 2000 * 10**18; // Total supply is 2000 tokens
+    uint256 public constant tokenPrice = 0.000001 ether;
+    uint256 public constant maxSupply = 10000 * 10**18; // Total supply is 10000 tokens
 
     // Whitelist of addresses allowed to mint tokens
     mapping(address => uint256) public whitelist;
@@ -37,7 +38,7 @@ contract IbukunToken is ERC20, Ownable, Pausable {
      */
     function mintTokens(uint256 _amount) external payable whenNotPaused {
         require(whitelist[msg.sender] > 0, "You are not whitelisted for token minting");
-        uint256 _calculatedAmount = _amount.mul(1 ether); // Calculate amount in Wei
+        uint256 _calculatedAmount = _amount.mul(tokenPrice); // Calculate amount in Wei
         require(msg.value >= _calculatedAmount, "Not enough ether to mint the requested Ibukun Tokens");
         uint256 amountInWei = _amount.mul(10**18);
         require(totalSupply().add(amountInWei) <= maxSupply, "Not enough tokens left to be minted");

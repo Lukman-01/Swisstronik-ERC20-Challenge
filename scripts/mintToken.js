@@ -14,14 +14,15 @@ const sendShieldTransaction = async (signer, destination, data, value) => {
 }
 
 async function main() {
-    const contractAddress = "0xe47fCcABcC282fE9A621c88Ad9E8749a38f61C15";
+    const contractAddress = "0xE006Ef36BA678Ed201587E91200de47255c3d664";
+    const tokenPrice = 0.000001;
     const [signer] = await hre.ethers.getSigners();
     const contractFactory = await hre.ethers.getContractFactory("IbukunToken");
     const contract = contractFactory.attach(contractAddress);
     const functionName = "mintTokens";
     const amountParam = 100;
     const amount = new BigNumber(amountParam);
-    const value = amount.multipliedBy(10**18);
+    const value = amount.multipliedBy(tokenPrice);
     const valueInWei = hre.ethers.parseEther(value.toString());
     const mintTX = await sendShieldTransaction(signer, contractAddress, contract.interface.encodeFunctionData(functionName, [amountParam.toString()]), valueInWei);
     await mintTX.wait();
