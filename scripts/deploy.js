@@ -15,4 +15,4 @@ main().catch((error) => {
 });
 
 
-// IbukunToken contract deployed to 0xE006Ef36BA678Ed201587E91200de47255c3d664
+// IbukunToken contract deployed to 0xb4691275Ef6D57Ab5952c07806ac6b9B46992697

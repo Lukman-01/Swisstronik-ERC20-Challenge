@@ -37,7 +37,7 @@ contract IbukunToken is ERC20, Ownable, Pausable {
      * @param _amount The amount of tokens to mint.
      */
     function mintTokens(uint256 _amount) external payable whenNotPaused {
-        require(whitelist[msg.sender] > 0, "You are not whitelisted for token minting");
+        ///require(whitelist[msg.sender] > 0, "You are not whitelisted for token minting");
         uint256 _calculatedAmount = _amount.mul(tokenPrice); // Calculate amount in Wei
         require(msg.value >= _calculatedAmount, "Not enough ether to mint the requested Ibukun Tokens");
         uint256 amountInWei = _amount.mul(10**18);
