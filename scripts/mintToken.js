@@ -21,7 +21,7 @@ const sendShieldTransaction = async (signer, destination, data, value) => {
 // Main function
 async function main() {
     // Define contract address and token price
-    const contractAddress = "0xacFfd04f690a7D718A23C07276c2bFCcF2Ee7E7A";
+    const contractAddress = "0x6B9e263B97c230C12e11a49C65F31D6F42B471cc";
     const tokenPrice = 0.000001;
 
     // Get the signer (account) from Hardhat
