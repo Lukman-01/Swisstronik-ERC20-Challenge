@@ -14,7 +14,7 @@ const sendShieldTransaction = async (signer, destination, data, value) => {
 }
 
 async function main() {
-    const contractAddress = "0x47d750Bdb4eE0920e6C9A3C5Bb92Ff06c92e3D0f";
+    const contractAddress = "0x3dA6944bbA48C5aD93e02B75b0d9C1564B3D8C67";
     const tokenPrice = 0.000001;
     const [signer] = await hre.ethers.getSigners();
     const contractFactory = await hre.ethers.getContractFactory("IbukunToken");
