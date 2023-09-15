@@ -10,8 +10,7 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
  * @title IbukunToken
  * @dev This contract represents the Ibukun Token (IBK).
  */
-contract IbukunToken is ERC20, Ownable {
-    // use Pausable
+contract IbukunToken is ERC20, Ownable, Pausable {
     using SafeMath for uint256;
 
     uint256 public constant tokenPrice = 0.000001 ether;
@@ -30,15 +29,14 @@ contract IbukunToken is ERC20, Ownable {
      * It mints the maximum supply and assigns it to the contract owner.
      */
     constructor() ERC20("Ibukun Token", "IBK") {
-        _mint(msg.sender, 10 * 10**18);
+        _mint(msg.sender, 50 * 10**18);
     }
 
     /**
      * @dev Mint tokens to the caller based on their whitelist status.
      * @param _amount The amount of tokens to mint.
      */
-    function mintTokens(uint256 _amount) external payable {
-        // use whenNotPaused
+    function mintTokens(uint256 _amount) external payable whenNotPaused{
         ///require(whitelist[msg.sender] > 0, "You are not whitelisted for token minting");
         uint256 _calculatedAmount = _amount.mul(tokenPrice); // Calculate amount in Wei
         require(msg.value >= _calculatedAmount, "Not enough ether to mint the requested Ibukun Tokens");
@@ -96,7 +94,7 @@ contract IbukunToken is ERC20, Ownable {
     /**
      * @dev Fallback function to reject incoming Ether.
      */
-    // receive() external payable {
-    //     revert("This contract does not accept Ether.");
-    // }
+    receive() external payable {
+        revert("This contract does not accept Ether.");
+    }
 }
